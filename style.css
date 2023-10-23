@@ -1,1 +1,12 @@
+#matchgamegrid {
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr 1fr;
+}
+h1 {
+  text-align: center;
+  
+}
+.button {
+  height: 150px;
+}
 
