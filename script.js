@@ -1,135 +1,51 @@
+let matchedCards = [];
+let flippedCards = [];
+let buttonPairs = 8;
+
 function initialize() {
-  matchedCards = [];
-  flippedCards = [];
-  button1 = document.getElementById("A");
-  button2 = document.getElementById("A");
-  button3 = document.getElementByID("B");
-  button4 = document.getElementById("B");
-  button5 = document.getElementById("C");
-  button6 = document.getElementById("C");
-  button7 = document.getElementById("D");
-  button8 = document.getElementById("D");
-  button9 = document.getElementById("E");
-  button10 = document.getElementById("E");
-  button11 = document.getElementById("F");
-  button12 = document.getElementById("F");
-  button13 = document.getElementById("G");
-  button14 = document.getElementById("G");
-  button15 = document.getElementById("H");
-  button16 = document.getElementById("H");
-  const buttons = document.querySelectorAll('button');
+  const buttons = document.querySelectorAll('.button');
   for (const button of buttons) {
-    button.addEventListener("click", clickCard());
+    button.addEventListener("click", clickCard);
   }
+  assignCardImage(buttons);
 }
 
 function checkMatch() {
-  if (matchedCards.length == 2) {
-    if (matchedCards[0].value == matchedCards[1].value) {
-      flippedCards.push(matchedCards[0]);
-      flippedCards.push(matchedCards[1]);
-      matchedCards = [];
+  if (flippedCards.length == 2) {
+    if (flippedCards[0].textContent == flippedCards[1].textContent) {
+      alert("You found a match!")
+      matchedCards.push(flippedCards[0], flippedCards[1]);
+      // flippedCards[0].style.backgroundColor = "blue"; 
+      // flippedCards[1].style.backgroundColor = "blue"; 
+    } else {      
+      // flippedCards[0].style.backgroundColor = "red";
+      // flippedCards[1].style.backgroundColor = "red";
     }
-    else {
-      matchedCards = [];
+    flippedCards = [];
+
+    if (matchedCards.length == buttonPairs * 2) {
+      alert("You've won!");
     }
+  }
 }
 
 function clickCard() {
-  matchedCards.push(this);
-  console.log(1);
-  checkMatch();
+  if (!flippedCards.includes(this) && !matchedCards.includes(this)) {
+    flippedCards.push(this);
+    this.style.backgroundColor = "white"; 
+    checkMatch();
+  }
 }
 
-function assignCardValue(){
-   {
-     var successDraw = 0;
-     var num1 = 0;
-     var num2 = 0;
-     var num3 =0;
-     var num4 = 0;
-     var num5 = 0;
-     var num6 = 0;
-     var num7 =0;
-     var num8 = 0;
-     var num;
-     var isDraw = false;
-     for (const button of buttons)
-       while (!isDraw&&successDraw<=16)
-         {
-           num = Math.floor(Math.random() * 8)+1;
-           if(num1<3)
-           {
-             if(num==1)
-             {
-               num1++;
-               isDraw = !isDraw;
-             }
-           }
-           else if(num2<3)
-           {
-             if(num==2)
-             {
-               num2++;
-               isDraw = !isDraw;
-             }
-           }
-           else if(num3<3)
-            {
-              if(num==3)
-              {
-                num3++;
-                isDraw = !isDraw;
-              }
-            }
-           else if(num4<3)
-            {
-              if(num==4)
-              {
-                num4++;
-                isDraw = !isDraw;
-              }
-            }
-           else if(num5<3)
-            {
-              if(num==5)
-              {
-                num5++;
-                isDraw = !isDraw;
-              }
-            }
-           else if(num6<3)
-            {
-              if(num==6)
-              {
-                num6++;
-                isDraw = !isDraw;
-              }
-            }
-           else if(num7<3)
-           {
-             if(num==7)
-             {
-               num7++;
-               isDraw = !isDraw;
-             }
-           }
-           else if(num8<3)
-           {
-             if(num==8)
-             {
-               num8++;
-               isDraw = !isDraw;
-             }
-           }
-         }
-     if(num==1)
-     {
-       button.style.backgroundColor = "red";
-     }
-     if(num==2)
-      {
-        button.style.backgroundColor = "blue";
-      }
+function assignCardImage(buttons) {
+  const remainingImgs = ['spider.jpg', 'spider.jpg', 'witch.png', 'witch.png', 'wood.png', 'wood.png', 'pumpkinking.png', 'pumpkinking.png', 'horse.png', 'horse.png', 'deathsickle.png', 'deathsickle.png', 'scarecrow.png', 'scarecrow.png', 'threeheadhound.png', 'threeheadhound.png'];
+
+  for (const button of buttons) {
+    const randomIndex = Math.floor(Math.random() * remainingImgs.length);
+    const cardImage = remainingImgs.splice(randomIndex, 1)[0];
+
+    button.append(cardImage);
+    // button.style.color = "red";
+    // button.style.backgroundColor = "red"; 
   }
 }
