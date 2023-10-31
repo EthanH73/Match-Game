@@ -1,18 +1,37 @@
-#matchgamegrid {
-  display:grid;
-  grid-template-columns:1fr 1fr 1fr 1fr;
-  grid-template-rows:1fr 1fr 1fr 1fr;
-  height:80vh;
-  width:80vh;
-  border-color: grey;
-}
-h1 {
-  text-align: center;
-  color:white;
-}
-.button {
-  text-size-adjust: 150px;
-}
 body {
-  background-color: grey;
+  font-family: Arial, sans-serif;
+  text-align: center;
+}
+
+h1 {
+  font-size: 24px;
+  margin: 20px;
+}
+
+#matchgamegrid {
+  display: grid;
+  grid-template-columns: repeat(4, 100px);
+  grid-gap: 10px;
+  margin: 20px;
+}
+
+.button {
+  background-color: blue;
+  background-image: none;
+  background-size: cover;
+  background-position: center;
+  width: 100px;
+  height: 100px; 
+}
+
+.wrapper{
+  box-sizing: border-box;
+  width:100px;
+  padding:10px, 10px;
+  background-color:gray;
+  position:absolute;
+  transform: translate(-50%,-50%);
+  left:50%;
+  top:50%;
+  border-radius: 0.6em;
 }
