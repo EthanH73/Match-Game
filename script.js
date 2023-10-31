@@ -1,6 +1,8 @@
 let matchedCards = [];
 let flippedCards = [];
-let buttonPairs = 8;
+let score = 0;
+const buttonPairs = 8;
+const Time = document.getElementById("Time");
 
 function initialize() {
   const buttons = document.querySelectorAll('.button');
@@ -11,41 +13,71 @@ function initialize() {
 }
 
 function checkMatch() {
-  if (flippedCards.length == 2) {
-    if (flippedCards[0].textContent == flippedCards[1].textContent) {
-      alert("You found a match!")
+  if (flippedCards.length === 2) {
+    if (flippedCards[0].getAttribute('data-image') === flippedCards[1].getAttribute('data-image')) {
       matchedCards.push(flippedCards[0], flippedCards[1]);
-      // flippedCards[0].style.backgroundColor = "blue"; 
-      // flippedCards[1].style.backgroundColor = "blue"; 
-    } else {      
-      // flippedCards[0].style.backgroundColor = "red";
-      // flippedCards[1].style.backgroundColor = "red";
+      flippedCards = [];
+      score++;
+      
+      alert("You found a match!");
+    } else {
+      setTimeout(() => {
+        for (const card of flippedCards) {
+          card.style.backgroundImage = 'none';
+          card.style.backgroundColor = 'blue';
+        }
+        flippedCards = [];
+      }, 1000);
     }
-    flippedCards = [];
 
-    if (matchedCards.length == buttonPairs * 2) {
+    if (matchedCards.length === buttonPairs * 2) {
       alert("You've won!");
     }
   }
 }
 
 function clickCard() {
-  if (!flippedCards.includes(this) && !matchedCards.includes(this)) {
+  if (!flippedCards.includes(this) && !matchedCards.includes(this) && flippedCards.length < 2) {
     flippedCards.push(this);
-    this.style.backgroundColor = "white"; 
+    const originalImage = this.getAttribute('data-image');
+    this.style.backgroundImage = `url(images/${originalImage})`;
+    this.style.backgroundColor = 'transparent';
     checkMatch();
   }
 }
 
 function assignCardImage(buttons) {
-  const remainingImgs = ['spider.jpg', 'spider.jpg', 'witch.png', 'witch.png', 'wood.png', 'wood.png', 'pumpkinking.png', 'pumpkinking.png', 'horse.png', 'horse.png', 'deathsickle.png', 'deathsickle.png', 'scarecrow.png', 'scarecrow.png', 'threeheadhound.png', 'threeheadhound.png'];
+  const remainingImgs = [
+    'spider.jpg', 'spider.jpg',
+    'witch.png', 'witch.png',
+    'wood.png', 'wood.png',
+    'pumpkinking.png', 'pumpkinking.png',
+    'horse.png', 'horse.png',
+    'deathsickle.png', 'deathsickle.png',
+    'scarecrow.png', 'scarecrow.png',
+    'threeheadhound.png', 'threeheadhound.png'
+  ];
 
   for (const button of buttons) {
     const randomIndex = Math.floor(Math.random() * remainingImgs.length);
     const cardImage = remainingImgs.splice(randomIndex, 1)[0];
 
-    button.append(cardImage);
-    // button.style.color = "red";
-    // button.style.backgroundColor = "red"; 
+    button.style.backgroundImage = 'none';
+    button.style.backgroundColor = 'blue';
+    button.setAttribute('data-image', cardImage);
   }
+
+  let second = 0;
+    minute = 0;
+  const timeGenerator = ()=> {
+    second++;
+    if(second==60){
+      minute++;
+      second=0;
+    }
+    let secondsValue = second <10 ? `0${second}` : second;
+    let minuteValue = minute <10 ?`0${minute}`: minute;
+
+    Time.innerHTML = `<span> Time:</span>${minuteValue}:${secondsValue}`;
+  };
 }
