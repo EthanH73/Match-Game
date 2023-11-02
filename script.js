@@ -1,5 +1,6 @@
 let matchedCards = [];
 let flippedCards = [];
+Score = document.getElementById("Score")
 let score = 0;
 const buttonPairs = 8;
 const Time = document.getElementById("Time");
@@ -18,13 +19,13 @@ function checkMatch() {
       matchedCards.push(flippedCards[0], flippedCards[1]);
       flippedCards = [];
       score++;
-      
+      Score.innerHTML = "Score:" +score;
       alert("You found a match!");
     } else {
       setTimeout(() => {
         for (const card of flippedCards) {
           card.style.backgroundImage = 'none';
-          card.style.backgroundColor = 'blue';
+          card.style.backgroundColor = '#ff6600';
         }
         flippedCards = [];
       }, 1000);
@@ -63,7 +64,7 @@ function assignCardImage(buttons) {
     const cardImage = remainingImgs.splice(randomIndex, 1)[0];
 
     button.style.backgroundImage = 'none';
-    button.style.backgroundColor = 'blue';
+    button.style.backgroundColor = '#ff6600';
     button.setAttribute('data-image', cardImage);
   }
 
@@ -77,7 +78,7 @@ function assignCardImage(buttons) {
     }
     let secondsValue = second <10 ? `0${second}` : second;
     let minuteValue = minute <10 ?`0${minute}`: minute;
-
     Time.innerHTML = `<span> Time:</span>${minuteValue}:${secondsValue}`;
-  };
+  }
+  setInterval(timeGenerator, 1000);
 }
