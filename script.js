@@ -18,8 +18,6 @@ function checkMatch() {
     if (flippedCards[0].getAttribute('data-image') === flippedCards[1].getAttribute('data-image')) {
       matchedCards.push(flippedCards[0], flippedCards[1]);
       flippedCards = [];
-      score++;
-      Score.innerHTML = "Score:" +score;
       alert("You found a match!");
     } else {
       setTimeout(() => {
@@ -40,6 +38,8 @@ function checkMatch() {
 function clickCard() {
   if (!flippedCards.includes(this) && !matchedCards.includes(this) && flippedCards.length < 2) {
     flippedCards.push(this);
+    score++;
+    Score.innerHTML = "Score:" + score;
     const originalImage = this.getAttribute('data-image');
     this.style.backgroundImage = `url(images/${originalImage})`;
     this.style.backgroundColor = 'transparent';
